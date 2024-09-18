@@ -1,53 +1,58 @@
-/* styles.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f06, #ffcc33);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
 .search-container {
-    position: relative;
-    width: 300px;
-    margin: 0 auto;
+  position: relative;
+  width: 300px;
 }
 
-#search-bar {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ffffff
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-    background-color: #f9f9f9;
+.search-container input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
 }
 
-#suggestions {
-    border: 1px solid #ccc;
-    border-top: none;
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    width: 100%;
-    background: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 5px 5px;
-    z-index: 1000;
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 0 0 4px 4px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-.suggestion-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.suggestions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.suggestion-item:hover {
-    background-color: #f0f0f0;
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
 }
 
-.suggestion-item img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-    border-radius: 50%;
+.suggestions li:hover {
+  background-color: #f0f0f0;
 }
 
-.suggestion-item span {
-    font-size: 16px;
-    color: #333;
+input:focus {
+  border-color: #ff6f61;
+  outline: none;
 }
