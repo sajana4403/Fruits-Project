@@ -1,32 +1,53 @@
-// script.js
-const fruits = [
-    { name: "Apple", img: "apple.jpg" },
-    { name: "Banana", img: "banana.jpg" },
-    { name: "Cherry", img: "cherry.jpg" },
-    { name: "Date", img: "date.jpg" },
-    { name: "Elderberry", img: "elderberry.jpg" },
-    { name: "Fig", img: "fig.jpg" },
-    { name: "Grape", img: "grape.jpg" },
-    { name: "Strawberry", img: "strawberry.jpg" } // C:\Users\aashi\OneDrive\Desktop
+const input = document.querySelector('#fruit');
+const suggestions = document.querySelector('.suggestions ul');
+const fruit = [
+    'Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 
+    'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 
+    'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 
+    'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 
+    'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 
+    'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 
+    'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 
+    'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 
+    'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 
+    'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'
 ];
 
-const searchBar = document.getElementById('search-bar');
-const suggestions = document.getElementById('suggestions');
+function search(str) {
+    let results = [];
+    const inputValue = str.toLowerCase();
+    
+    if (inputValue.length > 0) {
+        results = fruit.filter(f => f.toLowerCase().includes(inputValue));
+    }
 
-searchBar.addEventListener('input', () => {
-    const input = searchBar.value.toLowerCase();
-    suggestions.innerHTML = '';
-    if (input) {
-        const filteredFruits = fruits.filter(fruit => fruit.name.toLowerCase().includes(input));
-        filteredFruits.forEach(fruit => {
-            const div = document.createElement('div');
-            div.classList.add('suggestion-item');
-            div.innerHTML = `<img src="${fruit.img}" alt="${fruit.name}"><span>${fruit.name}</span>`;
-            div.addEventListener('click', () => {
-                searchBar.value = fruit.name;
-                suggestions.innerHTML = '';
-            });
-            suggestions.appendChild(div);
+    return results;
+}
+
+function searchHandler(e) {
+    const inputVal = e.target.value;
+    const results = search(inputVal);
+    showSuggestions(results, inputVal);
+}
+
+function showSuggestions(results, inputVal) {
+    suggestions.innerHTML = ''; // Clear previous suggestions
+    
+    if (results.length > 0) {
+        results.forEach(fruit => {
+            const li = document.createElement('li');
+            li.textContent = fruit;
+            suggestions.appendChild(li);
         });
     }
-});
+}
+
+function useSuggestion(e) {
+    if (e.target.tagName === 'LI') {
+        input.value = e.target.textContent;
+        suggestions.innerHTML = ''; // Clear the suggestions list after selection
+    }
+}
+
+input.addEventListener('keyup', searchHandler);
+suggestions.addEventListener('click', useSuggestion);
